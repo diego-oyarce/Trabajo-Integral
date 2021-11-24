@@ -15,6 +15,21 @@
 .link:hover{
     color: pink;
 }
+.h1,
+.h2{
+
+    color: white;
+    text-align: center;
+}
+.h1:hover,
+.h2:hover{
+    color:fuchsia;
+}
+.integrantes,
+.lista-integrantes{
+    color: white;
+    margin-left: 3%;
+}
 #grafo-simple{
     background-color:darkcyan;
     width: 70%;
@@ -62,4 +77,10 @@
     text-align: center;
     background-color: cornflowerblue;
     border-radius: 6px;
+}
+.repo-github{
+    width: 20%;
+    height: 20%;
+    margin-top: auto;
+    margin-left: 40%;
 }
