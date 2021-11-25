@@ -17,13 +17,22 @@
 }
 .h1,
 .h2{
-
     color: white;
     text-align: center;
 }
 .h1:hover,
 .h2:hover{
     color:fuchsia;
+}
+.h3{
+    color: white;
+    margin-left: 3%;
+}
+.enunciado{
+    color: white;
+    margin-left: 3%;
+    margin-right: 15%;
+    text-justify:auto;
 }
 .integrantes,
 .lista-integrantes{
@@ -83,4 +92,19 @@
     height: 20%;
     margin-top: auto;
     margin-left: 40%;
+}
+#file-input{
+    margin: 2%;
+}
+.instrucciones{
+    margin: 2%;
+    color: white;
+}
+.h3{
+    color: white;
+    margin: 2%;
+}
+#contenido-archivo{
+    margin: 2%;
+    color: white;
 }
