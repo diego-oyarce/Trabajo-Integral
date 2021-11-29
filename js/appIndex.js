@@ -6,7 +6,8 @@ function leerArchivo(e) {
   var lector = new FileReader();
   lector.onload = function(e) {
     var contenido = e.target.result;
-    separarDatos(contenido);
+    var arrayParametros = new Array();
+    arrayParametros = separarDatos(contenido);
     mostrarContenido(contenido);
   };
   lector.readAsText(archivo);
@@ -25,5 +26,25 @@ function separarDatos(contenido){
   var newstr = contenido.replace(/\n/g,";");
   newstr2 = newstr.replace(/\s/g,"");
   arrayAux = newstr2.split(";");
-  alert(arrayAux);
+  return arrayAux;
+}
+
+function estructuraArchivo(arrayParametros){
+  if((arrayParametros.lenght % 4) == 0){
+    verificarLetras(arrayParametros);
+    return true;
+  }
+  else{
+    alert("Los datos ingresados son incorrectos.");
+    return false;
+  }
+}
+
+function verificarLetras(arrayParametros){
+  for(let i=0; i<arrayParametros.lenght; (i+4)){
+    let letra = arrayParametros[i];
+    if((letra != 'P') || (letra != 'C')){
+      
+    }
+  }
 }
