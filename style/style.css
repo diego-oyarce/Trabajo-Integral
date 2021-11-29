@@ -2,7 +2,7 @@
     background-color:#D1F2FF;
 }
 .menu{
-    background-color:#4faae3;
+    background-color:#3e95ca;
     height: 50px;
     text-align:justify;
 }
@@ -17,12 +17,12 @@
 }
 .h1,
 .h2{
-    color: white;
+    color: #3e95ca;
     text-align: center;
 }
 .h1:hover,
 .h2:hover{
-    color:#4faae3;
+    color:#3e95ca;
 }
 .h3{
     color: black;
