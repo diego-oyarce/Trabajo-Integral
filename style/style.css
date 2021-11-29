@@ -22,21 +22,21 @@
 }
 .h1:hover,
 .h2:hover{
-    color:fuchsia;
+    color:#4faae3;
 }
 .h3{
-    color: white;
+    color: black;
     margin-left: 3%;
 }
 .enunciado{
-    color: white;
+    color: black;
     margin-left: 3%;
     margin-right: 15%;
     text-justify:auto;
 }
 .integrantes,
 .lista-integrantes{
-    color: white;
+    color: black;
     margin-left: 3%;
 }
 #grafo-simple{
@@ -97,7 +97,7 @@
     margin: 2%;
 }
 .h3{
-    color: white;
+    color: black;
     margin: 2%;
 }
 #contenido-archivo{
