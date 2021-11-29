@@ -1,12 +1,8 @@
 .body{
-    background-color:darkviolet;
+    background-color:#D1F2ff;
 }
 .menu{
-<<<<<<< HEAD
     background-color:#3e95ca;
-=======
-    background-color:black;
->>>>>>> 5141ab6162b627f90ad6761af3af362f3e31b941
     height: 50px;
     text-align:justify;
 }
