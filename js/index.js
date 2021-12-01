@@ -110,3 +110,35 @@ function armarGrafos(demandas, nodos){
     }
   }
 }
+
+function crearListaNodosEnGrafo(nodos, nodosEnArbol, transiciones){
+  let nodosReturn = [];
+
+  for(let i = 0; i < nodosEnArbol.length; i++){
+    for(let j = 0; j < transiciones.length; j++){
+      if(nodosEnArbol[i].id == transiciones[j].nodoA || nodosEnArbol[i].id == transiciones[j].nodoB){
+        for(let z = 0; z < nodos.length; z++){
+          if(nodosEnArbol[i].id == transiciones[j].nodoA && transiciones[j].nodoB == nodos[z].id && !nodosEnArbol.includes(nodos[z])){
+            nodosReturn.push(nodos[z]);
+            break;
+          }else if(nodosEnArbol[i].id == transiciones[j].nodoB && transiciones[j].nodoA == nodos[z].id && !nodosEnArbol.includes(nodos[z])){
+            nodosReturn.push(nodos[z]);
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  return nodosReturn;
+}
+
+function crearListaNodosNoVistos(nodos, nodosEnArbol, nodosEnGrafo){
+  let nodosReturn = nodos.filter((nodo)=>{
+    if(!nodosEnArbol.includes(nodo) && !nodosEnGrafo.includes(nodo)) return true;
+
+    return false;
+  });
+  
+  return nodosReturn;
+}
