@@ -66,3 +66,47 @@ class Transicion{
     }
   
 }
+
+let Grafos = [];
+
+function existeNodo(id, nodos){
+  for(let i = 0; i < nodos.length; i++){
+    if(nodos[i].id == id){
+      return true;
+    }
+  }
+  return false;
+}
+
+function armarGrafos(demandas, nodos){
+  let centros = [];
+  for(let i = 0; i < demandas.length; i++){
+    if(centros.indexOf(demandas[i].C) == -1){
+      centros.push(demandas[i].C);
+      let nodoCentro = null;
+      let nNodos = [];
+      let transiciones = [];
+
+      for(let j = 0; j < nodos.length; j++){
+        if(demandas[i].C == nodos[j].id && nodos[j].tipo == 'C'){
+          nodoCentro = new Nodo(`C${nodos[j].id}`, 'C', nodos[j].x, nodos[j].y);
+          nNodos.push(nodoCentro);
+          break;
+        }
+      }
+      
+      for(let j = 0; j < demandas.length; j++){
+        if(demandas[i].C == demandas[j].C && !existeNodo(`P${demandas[j].P}`, nNodos)){
+          for(let z = 0; z < nodos.length; z++){
+            if(nodos[z].id == demandas[j].P && nodos[z].tipo == 'P'){
+              transiciones.push(new Transicion(`C${demandas[j].C}`, `P${demandas[j].P}`, nodoCentro.calcularDistancia(nodos[z].x, nodos[z].y)));
+              nNodos.push(new Nodo(`${nodos[z].tipo}${nodos[z].id}`, nodos[z].tipo, nodos[z].x, nodos[z].y, demandas[j].N));
+              break;
+            }
+          }
+        }
+      }
+      Grafos.push(new Grafo(nNodos, transiciones));
+    }
+  }
+}
