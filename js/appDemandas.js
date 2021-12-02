@@ -1,3 +1,89 @@
+let fileInput = document.getElementById('file-input');
+let boton = document.getElementById('subirArchivo');
+let Grafos = [];
+let nodos = [];
+let demandas = [];
+
+traerNodos();
+
+function traerNodos(){
+  let config = {
+    method: 'GET'
+  }
+  fetch('http://localhost:9999/ws/api/parametros/get', config)
+    .then(response => response.json())
+    .then(response => {
+      if(response.codigo == 0){
+        nodos = response.resp;
+        if(!nodos){
+          alert('Aviso: No se han subidos los parámetros. Vuelva a la página de inicio e ingrese el archivo de parámetros.');
+        }
+      }
+      
+    });
+}
+
+
+boton.addEventListener('click', (e)=>{
+  if(!fileInput.value) return alert('Debe ingresar un archivo.');
+  subirArchivo(fileInput.files[0])
+})
+
+function subirArchivo(archivo){
+  let data = new FormData();
+  data.append('archivo', archivo);
+  let config = {
+    body: data,
+    method: 'POST'
+  }
+  fetch('http://localhost:9999/ws/api/demandas/post', config)
+    .then(response => response.json())
+    .then(response => {
+      alert(response.mensaje);
+      if(response.codigo == 0){
+        demandas = response.resp;
+        if(!nodos) return alert('Aviso: No se han subidos los parámetros. Vuelva a la página de inicio e ingrese el archivo de parámetros.');
+        if(!demandas) return alert('Aviso: El archivo de Demandas subido, no contiene datos');
+        document.getElementById('obtener-ruta').style.display = '';
+      }
+      
+    });
+}
+
+document.getElementById('botonObtenerRutas').addEventListener('click', (e)=>{
+  armarGrafos(demandas, nodos);
+  let rutas = algoritmoCalculo(Grafos);
+  mostrarRutas(rutas);
+
+})
+
+function entregarNodo(transicion, nodoAnterior){
+  if(transicion.nodoA == nodoAnterior) return transicion.nodoB;
+  if(transicion.nodoB == nodoAnterior) return transicion.nodoA;
+}
+
+function mostrarRutas(rutas){
+  let divRutas = document.getElementById('rutas');
+  divRutas.style.display = '';
+  divRutas.innerHTML = '<hr> <h6>Mejores Rutas</h6>';
+  if(rutas.length == 0) return divRutas.innerHTML += '<h6>No existen rutas.</h6>'
+  rutas.forEach((ruta, i) => {
+    let pesoTotal = 0;
+    let nodoAnterior = 'E0';
+    let texto = `<strong>Camión ${i+1}:</strong> E0 `;
+    ruta.forEach(transicion=>{
+      let siguienteNodo = entregarNodo(transicion, nodoAnterior);
+      texto += '-> ' + siguienteNodo + ' ';
+      pesoTotal += transicion.peso;
+      nodoAnterior = siguienteNodo;
+    })
+
+    divRutas.innerHTML += `<div class="alert alert-primary" style="max-width: 60vh">${texto}- <strong>Distancia Total</strong>: ${pesoTotal.toFixed(5)} km</div>`;
+
+  })
+
+}
+
 class Grafo{
     nodos = [];
     transiciones = [];
@@ -142,3 +228,4 @@ function crearListaNodosNoVistos(nodos, nodosEnArbol, nodosEnGrafo){
   
   return nodosReturn;
 }
+
