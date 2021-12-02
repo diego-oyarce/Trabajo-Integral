@@ -229,3 +229,46 @@ function crearListaNodosNoVistos(nodos, nodosEnArbol, nodosEnGrafo){
   return nodosReturn;
 }
 
+function indexOf(id, nodos){
+  for(let i = 0; i < nodos.length; i++){
+    if(id == nodos[i].id) return i;
+  }
+  return -1;
+}
+
+function traerMenorTransicion(nodosGrafos, transiciones, actualSuministro, nodoActual, nodosArbol){
+
+  let transActual = null;
+
+  for(let i = 0; i < transiciones.length; i++){
+    let trans = transiciones[i];
+    if((!transActual || trans.peso < transActual.peso) && (trans.nodoA == nodoActual || trans.nodoB == nodoActual )){
+      let indexA = indexOf(trans.nodoA, nodosGrafos);
+      let indexB = indexOf(trans.nodoB, nodosGrafos);
+      if(indexA != -1){
+        if(actualSuministro - nodosGrafos[indexA].demanda >= 0){
+          transActual = trans;
+        }
+      }
+      if(indexB != -1){
+        if(actualSuministro - nodosGrafos[indexB].demanda >= 0){
+          transActual = trans;
+        }
+      }
+    }
+  }
+
+  return transActual;
+}
+
+function existenPuntosDeVenta(nodos){
+  for(let i = 0; i < nodos.length; i++){
+    if(nodos[i].tipo == 'P') return true;
+  }
+  return false;
+}
+
+function eliminarNodosVisitados(nodos, nodosVisitados){
+  return nodos.filter((nodo) => !nodosVisitados.includes(nodo) || nodo.tipo == 'C' || nodo.tipo == 'E' );
+}
+
