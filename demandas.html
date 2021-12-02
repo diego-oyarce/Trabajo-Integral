@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel = "stylesheet" href= "style/style.css"/>
+    <title>Demandas del día</title>
+</head>
+<body class="body">
+    <div class="menu">
+        <a href="index.html" class="link">Inicio</a>
+    </div>
+
+    <h1 class="h1">Demanda de productos</h1>
+
+    <h3 class="h3">Ingrese <strong>las demandas de productos del día</strong>:</h3>
+    <ul>
+        <li style="color: black;">El archivo de demanda de productos del día debe tener el siguiente formato: <strong>C;P;N</strong>, donde <strong>C</strong> es el centro de distribucción, <strong>P</strong> es el punto de venta y <strong>N</strong> es la cantidad de productos a repartir desde <strong>C</strong> hasta <strong>P</strong>.</li>
+    </ul>
+    <input type="file" id="file-input"/> <button class="boton" id="subirArchivo">Subir Archivo</button>
+
+    <div id="obtener-ruta" style="display: none; margin-left: 20px;">
+      <button class="boton" id="botonObtenerRutas">Obtener Rutas</button>
+    </div>
+
+    <div id="rutas" style="display: none; margin-left: 20px;">
+      <hr>
+      
+    </div>
+
+    <hr>
+
+   <a href="https://github.com/diego-oyarce/Trabajo-Integral" target="_blank" rel="noopener noreferrer"><img src="imagenes/github.png" alt="link a repositorio GitHub" class="repo-github"></a>
+    <script src="js/appDemandas.js"></script>
+</body>
+</html>
