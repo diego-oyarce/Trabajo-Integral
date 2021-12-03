@@ -272,3 +272,29 @@ function eliminarNodosVisitados(nodos, nodosVisitados){
   return nodos.filter((nodo) => !nodosVisitados.includes(nodo) || nodo.tipo == 'C' || nodo.tipo == 'E' );
 }
 
+function eliminarTransiciones(nodos, transiciones){
+  return transiciones.filter((trans) =>{
+    let existeNodoA = false;
+    let existeNodoB = false;
+    for(let i = 0; i < nodos.length; i++){
+      if(nodos[i].id == trans.nodoA){
+        existeNodoA = true;
+      }else if(nodos[i].id == trans.nodoB){
+        existeNodoB = true;
+      }
+
+      if(existeNodoA && existeNodoB) break;
+    }
+
+    return existeNodoA && existeNodoB;
+  })
+}
+
+function traerNodoCentro(nodos){
+  for(let i = 0; i < nodos.length; i++){
+    if(nodos[i].tipo == 'C'){
+      return nodos[i];
+    }
+  }
+  return nodos[0];
+}
