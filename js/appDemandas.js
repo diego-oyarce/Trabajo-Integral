@@ -298,3 +298,52 @@ function traerNodoCentro(nodos){
   }
   return nodos[0];
 }
+
+function algoritmoCalculo(grafos){
+
+  let rutasFinales = [];
+
+  grafos.forEach((grafo)=>{
+    let nodosArbol = [ grafo.nodos[0] ];
+    let nodos = [...grafo.nodos];
+    let transiciones = [...grafo.transiciones];
+    let nodosGrafos = crearListaNodosEnGrafo(nodos, nodosArbol, transiciones);
+
+    let mejorRuta = [];
+
+    let actualSuministro = 1000;
+    let nodoActual = 'E0';
+
+    while(existenPuntosDeVenta(nodos)){
+      let ruta = traerMenorTransicion(nodosGrafos, transiciones, actualSuministro, nodoActual, nodosArbol);
+      if(ruta){
+
+        mejorRuta.push(ruta);
+        let indexA = indexOf(ruta.nodoA, nodosGrafos);
+        let index = indexA != -1 ? indexA : indexOf(ruta.nodoB, nodosGrafos);
+        let variable = indexA != -1 ? 'nodoA' : 'nodoB';
+        
+        if(index != -1){
+          nodoActual = ruta[variable];
+          actualSuministro -= nodosGrafos[index].demanda;
+          nodosArbol.push(nodosGrafos[index]);
+          nodosGrafos = crearListaNodosEnGrafo(nodos, nodosArbol, transiciones);
+        }
+        
+      }else{
+        nodos = eliminarNodosVisitados(nodos, nodosArbol);
+        transiciones = eliminarTransiciones(nodos, transiciones);
+
+        mejorRuta.push(new Transicion('E0', nodoActual, grafo.nodos[indexOf(nodoActual, grafo.nodos)].calcularDistancia(0, 0)));
+        rutasFinales.push(mejorRuta);
+        nodosArbol = [ grafo.nodos[0] ];
+        nodoActual = 'E0';
+        mejorRuta = [];
+        nodosGrafos = crearListaNodosEnGrafo(nodos, nodosArbol, transiciones);
+        actualSuministro = 1000;
+      }
+      
+    }
+  })
+  return rutasFinales;
+}
