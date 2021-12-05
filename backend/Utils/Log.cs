@@ -17,11 +17,11 @@ namespace backend.Utils
 
             if (!Directory.Exists(ruta)) Directory.CreateDirectory(ruta);
             if (!File.Exists(ruta + nombre)) File.Create(ruta + nombre);
+            string[] lineas = File.ReadAllLines(ruta + nombre);
+            List<string> tmp = lineas.ToList<string>();
+            tmp.Add(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "\t" + mensaje);
 
-            StreamWriter streamWriter = new StreamWriter(ruta+nombre);
-            streamWriter.WriteLine(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "\t" + mensaje);
-
-            streamWriter.Close();
+            File.WriteAllLines(ruta + nombre, tmp.ToArray<string>());
 
         }
     }
